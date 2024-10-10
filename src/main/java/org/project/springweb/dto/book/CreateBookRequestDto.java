@@ -2,6 +2,7 @@ package org.project.springweb.dto.book;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.project.springweb.validation.book.Author;
 import org.project.springweb.validation.book.Isbn;
@@ -15,7 +16,7 @@ public class CreateBookRequestDto {
     private String author;
     @Isbn
     private String isbn;
-    @NotBlank
+    @NotNull
     @Min(value = 0)
     private BigDecimal price;
     private String description;

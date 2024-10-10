@@ -1,0 +1,41 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-users-in-users-table
+      author: fetis_off
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: email
+                  value: "admin@gmail.com"
+              - column:
+                  name: password
+                  value: "admin1234"
+              - column:
+                  name: first_name
+                  value: "Adamov"
+              - column:
+                  name: last_name
+                  value: "Adam"
+              - column:
+                  name: shipping_address
+                  value: "Ukraine"
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: email
+                  value: "user@gmail.com"
+              - column:
+                  name: password
+                  value: "user1234"
+              - column:
+                  name: first_name
+                  value: "Ivan"
+              - column:
+                  name: last_name
+                  value: "Ivanov"
+              - column:
+                  name: shipping_address
+                  value: "Ukraine"

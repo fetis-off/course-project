@@ -3,6 +3,7 @@ package org.project.springweb.service.book;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.project.springweb.dto.book.BookDto;
+import org.project.springweb.dto.book.BookDtoWithoutCategoryIds;
 import org.project.springweb.dto.book.BookSearchParametersDto;
 import org.project.springweb.dto.book.CreateBookRequestDto;
 import org.project.springweb.exception.EntityNotFoundException;
@@ -10,7 +11,6 @@ import org.project.springweb.mapper.BookMapper;
 import org.project.springweb.model.Book;
 import org.project.springweb.repository.book.BookRepository;
 import org.project.springweb.repository.book.BookSpecificationBuilder;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ public class BookServiceImpl implements BookService {
     private final BookSpecificationBuilder bookSpecificationBuilder;
 
     @Override
-    public List<BookDto> getAll(Pageable pageable) {
+    public List<BookDto> findAll(Pageable pageable) {
         return bookRepository.findAll(pageable).stream()
                 .map(bookMapper::toDto)
                 .toList();
@@ -51,9 +51,20 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Page<BookDto> search(BookSearchParametersDto params, Pageable pageable) {
-        Specification<BookDto> bookSpecification = bookSpecificationBuilder.build(params);
-        return bookRepository.findAll(bookSpecification, pageable);
+    public List<BookDto> search(BookSearchParametersDto params, Pageable pageable) {
+        Specification<BookDto> bookSpecification = bookSpecificationBuilder
+                .build(params);
+        return bookRepository.findAll(bookSpecification, pageable).stream()
+                .toList();
+    }
+
+    @Override
+    public List<BookDtoWithoutCategoryIds> findAllByCategoryId(Long categoryId,
+                                                               Pageable pageable) {
+        return bookRepository.findAllByCategoryId(categoryId, pageable)
+                .stream()
+                .map(bookMapper::toDtoWithoutCategoryIds)
+                .toList();
     }
 
     @Override

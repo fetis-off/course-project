@@ -2,8 +2,11 @@ package org.project.springweb.dto.book;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 import lombok.Data;
 import org.project.springweb.validation.book.Author;
 import org.project.springweb.validation.book.Isbn;
@@ -19,6 +22,9 @@ public class CreateBookRequestDto {
     @NotNull
     @Min(value = 0)
     private BigDecimal price;
+
+    @NotEmpty
+    private Set<Long> categoryIds = new HashSet<>();
     private String description;
     private String coverImage;
 }

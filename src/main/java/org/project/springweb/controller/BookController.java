@@ -8,7 +8,6 @@ import org.project.springweb.dto.book.BookDto;
 import org.project.springweb.dto.book.BookSearchParametersDto;
 import org.project.springweb.dto.book.CreateBookRequestDto;
 import org.project.springweb.service.book.BookService;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
@@ -33,7 +32,7 @@ public class BookController {
     @PreAuthorize("hasRole('USER')")
     @GetMapping
     public List<BookDto> getAll(@PageableDefault(size = 20) Pageable pageable) {
-        return bookService.getAll(pageable);
+        return bookService.findAll(pageable);
     }
 
     @Operation(summary = "Get a book", description = "Get a particular book by id")
@@ -61,7 +60,7 @@ public class BookController {
     @Operation(summary = "Search books", description = "Search books by parameters")
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/search")
-    public Page<BookDto> searchBooks(BookSearchParametersDto searchParameters,
+    public List<BookDto> searchBooks(BookSearchParametersDto searchParameters,
                                      @PageableDefault(size = 20) Pageable pageable) {
         return bookService.search(searchParameters, pageable);
     }

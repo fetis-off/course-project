@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.Named;
 import org.project.springweb.config.MapperConfig;
 import org.project.springweb.dto.book.BookDto;
 import org.project.springweb.dto.book.BookDtoWithoutCategoryIds;
@@ -38,5 +39,12 @@ public interface BookMapper {
                 .collect(Collectors.toSet());
 
         bookDto.setCategoryIds(categoryIds);
+    }
+
+    @Named(value = "bookFromId")
+    default Book bookFromId(Long id) {
+        Book book = new Book();
+        book.setId(id);
+        return book;
     }
 }
